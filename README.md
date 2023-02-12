@@ -383,5 +383,13 @@
    - 现有的基于CNN的仿射配准方法要么关注输入的局部错位，要么关注输入的全局方向和位置来预测仿射变换矩阵，对空间初始化敏感，脱离训练数据集的泛化能力有限。
    - 在综合图像配准框架中，目标图像对通常在使用可变形(非刚性)配准之前基于刚性或仿射变换进行预对齐，消除了目标图像对之间可能的线性和大空间错位。
    - 最近基于学习的变形图像配准方法的成功很大程度上是通过使用传统图像配准方法进行精确的仿射初始化，传统的配准方法具有较好的配准性能，但配准时间取决于输入图像之间的不对齐程度，对于高分辨率的3D图像体积，配准时间较长。
-   - 
+   - 最近的一项研究[1]表明，纯CNN编码器在一个看似微不足道的坐标变换问题中失败得很明显，这意味着纯CNN编码器可能不是一个理想的架构，用于编码笛卡尔空间中图像扫描的方向和绝对位置或仿射参数。[2]还报告了基于CNN的仿射配准方法在实践中表现不佳，即使是对于具有较大接受野的深度CNN。
+
+
+
+
+
+- [1] Rosanne Liu, Joel Lehman, Piero Molino, Felipe Petroski Such, Eric Frank, Alex Sergeev, and Jason Y osinski. Anintriguing failing of convolutional neural networks and the coordconv solution. arXiv preprint arXiv:1807.03247, 2018.
+
+- [2] Zhengyang Shen, Xu Han, Zhenlin Xu, and Marc Niethammer. Networks for joint affine and non-parametric image registration. In Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition, pages 4224–4233, 2019. 1, 2.
 
