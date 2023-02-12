@@ -67,13 +67,13 @@
 
      - 提出JL loss，即除了similarity（这里是MI）term之外对于图像background的配准结果计算MSE，抑制warped image中处于fixed image background区域中出现object （作者基于磁共振背景的灰度信号接近于0提出了背景抑制损失函数，该函数将f中灰度值小于某个值γ（由数据集据统计得到）的部分特别额外做一个MSE运算（其实也就是相当于让配准后图像对应位置也应该是0）。
 
-       ![2.2](./images./markdown/2.2.png)
+       ![2.2](./images/markdown/2.2.png)
 
      - 双重一致性损失：变形配准后的图像经过逆变换后和配准前的图像进行MSE或NCC的损失。
 
    - 总loss等于上述两项loss加上梯度平滑loss（下图）：
 
-     ![1_2](E:\data\biomedical\registeration\images\markdown\1_2.png)
+     ![1_2](./images/markdown/1_2.png)
 
 3. 代码
 
