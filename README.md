@@ -6,7 +6,7 @@
 
 1. 方法
 
-   ![](./images./markdown/1_1.png)
+   ![](./images/markdown/1_1.png)
 
    - 使用U-net得到flow field,然后使用spatial transformer得到配准图像；
    - ncc loss和梯度平滑loss；
@@ -59,7 +59,7 @@
 
 2. 方法
 
-   <img src="E:\data\biomedical\registeration\images\markdown\2_1.png" style="zoom:150%;" />
+   <img src="./images/markdown/2_1.png" style="zoom:150%;" />
 
    - 先使用一个网络输出仿射变换参数进行仿射变换，然后使用Unet结构输出flow field，然后进行配准操作。
 
@@ -67,7 +67,7 @@
 
      - 提出JL loss，即除了similarity（这里是MI）term之外对于图像background的配准结果计算MSE，抑制warped image中处于fixed image background区域中出现object （作者基于磁共振背景的灰度信号接近于0提出了背景抑制损失函数，该函数将f中灰度值小于某个值γ（由数据集据统计得到）的部分特别额外做一个MSE运算（其实也就是相当于让配准后图像对应位置也应该是0）。
 
-       ![2.2](E:\data\biomedical\registeration\images\markdown\2.2.png)
+       ![2.2](./images./markdown/2.2.png)
 
      - 双重一致性损失：变形配准后的图像经过逆变换后和配准前的图像进行MSE或NCC的损失。
 
@@ -136,9 +136,9 @@
 
 2. 方法
 
-   <img src="E:\data\biomedical\registeration\images\markdown\3.1.png" style="zoom:150%;" />
+   <img src="./images/markdown/3.1.png" style="zoom:150%;" />
 
-   ![image-20230127112039947](E:\data\biomedical\registeration\images\markdown\3.2.png)
+   ![image-20230127112039947](./images/markdown/3.2.png)
 
    - 仿射变换网络输出12个仿射变换参数：三个平移，三个旋转，三个缩放和三个剪切参数；
 
@@ -146,7 +146,7 @@
 
    - ncc loss和bending energy penalty loss:
 
-     ![3.3](E:\data\biomedical\registeration\images\markdown\3.3.png)
+     ![3.3](./images/markdown/3.3.png)
 
 3. 代码
 
@@ -164,11 +164,11 @@
 
 2. 方法
 
-   <img src="E:\data\biomedical\registeration\images\markdown\4_1.png" alt="4_1" style="zoom:130%;" />
+   <img src="./images/markdown/4_1.png" alt="4_1" style="zoom:130%;" />
 
    
 
-   <img src="E:\data\biomedical\registeration\images\markdown\4_2.png" alt="4_2" style="zoom:130%;" />
+   <img src="./images/markdown/4_2.png" alt="4_2" style="zoom:130%;" />
 
    - 将配准视为翻译任务，输入移动图像和固定图像，经过一个一个Transformer输出形变场。具体来说，AiR将固定图像分成一些patch序列，输入到Encoder中；将移动图像分成一些patch序列输入到Decoder中，Transformer整体结构不变，最后输出形变场，经过一个STN网络得到配准图像。
    - 提出了一种多尺度注意力并行Transformer(MAPT)，它可以从不同的感知尺度学习特征。MAPT由N个Transformer（N个解码器和N个编码器）组成。对于每个变压器，他们采用不同大小的patch作为输入，生成N个不同的注意力特征图$F_N$ 。然后将N个特征图采样成统一的大小，并按归一化加权比例相加，得到最终的可变形特征图$F$。感觉这个部分论文中没有讲清楚。
@@ -190,7 +190,7 @@
 
 2. 方法
 
-   ![](E:\data\biomedical\registeration\images\markdown\5_1.png)
+   ![](./images/markdown/5_1.png)
 
    - motivation: 
 
@@ -198,7 +198,7 @@
 
      1. Hierarchical dual-supervision双重监督策略：预测变形场与现有groudtrue变形场之间的差异  *$loss_\phi$* ，从groudtrue形变场中抽取出$24^3,14^3,9^3$三种分辨率的patch  (方法如下图), 与 U-net对应各层输出的形变场计算loss，将它们相加得到 *$loss_\phi$；配准图像与固定图像的差异*$loss_M$* 。
 
-        ![5_21](E:\data\biomedical\registeration\images\markdown\5_2.jpg)
+        ![5_21](./images/markdown/5_2.jpg)
 
      2. Gap filling：为了提高预测精度，在u型末端之间进一步插入额外的卷积层来连接低级特征和高级特征，即图中绿色部分。
 
@@ -223,7 +223,7 @@
 
 2. 方法
 
-   ![6_1](E:\data\biomedical\registeration\images\markdown\6_1.png)
+   ![6_1](./images/markdown/6_1.png)
 
    - ConvNet regressor是一个由Conv,Pool,BatchNorm组成的普通的神经网络，输出每个像素点在x和y方向的位移大小，然后经过一个STN网络得到配准图像。
 
@@ -239,24 +239,24 @@
 
 1. 动机
 
-   ![8_1](E:\data\biomedical\registeration\images\markdown\7_1.png)
+   ![8_1](./images/markdown/7_1.png)
 
    - 现有的大多数算法仅利用空间平滑惩罚来约束变换，这不能完全避免配准映射中的折叠（通常指示错误）。如果使用较大的权值作为平滑约束，过度鼓励待估计流动的局部平滑，如上图（a）所示，获得的配准结果会有全局错误。如果如果使用较小的权值作为平滑约束，学习到的流中会出现大量的折叠，如图（b）所示，从而由于局部缺陷而产生错误配准。如何适当地调整平滑度约束的贡献，同时避免估计流量中的折叠，并保持较高的配准精度是很有挑战性。
    - 以往的研究通常独立地估计从图像A到图像B或从图像B到图像A的变换，因此不能保证这些变换是彼此的逆映射，即忽略了一对图像之间转换的固有逆一致特性。
 
 2. 方法
 
-   ![8_2](E:\data\biomedical\registeration\images\markdown\7_2.png)
+   ![8_2](./images/markdown/7_2.png)
 
    - 为了解决这两个问题，本文提出了一种逆一致深度神经网络（ICNet）用于无监督变形图像配准。上图中两个Fully Convolutional Network实际上是同一个Network。（a）中绿色部分的是$L_{sim}$， 灰色部分是$L_{smo}$，橙色部分是$L_{ant}$，蓝色部分是$L_{inv}$。 $F_{AB}$ 是将图像A配准到图像B的形变场。 $\widetilde{F}_{BA}$是通过Inverse Network得到的形变场。  在Inverse Network中，相当于把$-F_{AB}$当做图像，用$F_{AB}$对$-F_{AB}$进行采样。
 
    - 提出了一种反向一致约束$L_{inv}$，以鼓励一对图像在多次传递中相互对称变形，直到双向变形的图像被匹配以实现正确的配准。
 
-     ![8_2](E:\data\biomedical\registeration\images\markdown\7_3.png)
+     ![8_2](./images/markdown/7_3.png)
 
    - 提出了一个反折叠约束$L_{ant}$，以避免形变场发生折叠。
 
-     ![](E:\data\biomedical\registeration\images\markdown\7_4.png)
+     ![](./images/markdown/7_4.png)
 
      解释：以下图为例，$i$表示其中一个坐标轴方向（x，y或z），$m+1$是$m$在$i$方向的相邻点，$F_{AB}^i(m)$是作用在点$m$的$i$方向上的位移，$m+F_{AB}^i(m)$表示点$m$位移后的位置，其它符合类似。为了避免发生折叠，点$m$和点$m+1$位移后形成的新的两个点应满足：
      $$
@@ -272,7 +272,7 @@
      $$
      如果公式（3）则表示没有发生折叠，反之，在$m$点发生折叠。
 
-     ![](E:\data\biomedical\registeration\images\markdown\7_5.png)
+     ![](./images/markdown/7_5.png)
 
    - 总的损失函数$L=L_{smi}+\alpha L_{smo}+\beta L_{inv}+\gamma L_{ant}$ ，其中$L_{smo}=\sum_{p \in \Omega}(\parallel \nabla{F_{AB}(p)} \parallel_2^2+\parallel \nabla{F_{BA}(p)} \parallel_2^2)$，$L_{smi}=(\parallel B-\widetilde A \parallel_F^2+\parallel A-\widetilde B \parallel_F^2$，$\widetilde A$和$\widetilde B$表示分别用用$F_{AB}$和$F_{BA}$配准后的图像。
 
@@ -292,7 +292,7 @@
 
 2. 方法
 
-   ![9_1](E:\data\biomedical\registeration\images\markdown\8_1.png)
+   ![9_1](./images/markdown/8_1.png)
 
    - 图（b）中紫色部分表示有可训练参数，白色部分表示没有可训练参数。
 
@@ -300,7 +300,7 @@
 
    - 损失函数：
 
-     ![9_2](E:\data\biomedical\registeration\images\markdown\8_2.png)
+     ![9_2](./images/markdown/8_2.png)
 
 3. 代码：
 
@@ -317,7 +317,7 @@
    - VTN包含了了3个技术组件：（1）级联了注册子网络，这提高了注册大量移位图像的性能，并且没有太大的减速；（2）将仿射配准集成到我们的网络中，这被证明是有效的，比使用单独的工具更快；（3）在训练过程中加入了额外的可逆性损失，从而提高了配准性能。
 2. 方法
 
-![10_1](E:\data\biomedical\registeration\images\markdown\9_1.png)
+![10_1](./images/markdown/9_1.png)
 
 - 首先用一个FCN回归出12个仿射配准参数进行仿射变换，后面接n个级联的U-Net。黄色部分只向第一个子网络传递梯度，蓝色部分向前两个子网络传播梯度。除了级联多个网络，网络本身没有什么大的创新，提出了Invertibility Loss。
 
@@ -335,7 +335,7 @@
 
 - Invertibility Loss：不理解
 
-  ![10_2](E:\data\biomedical\registeration\images\markdown\9_2.png)
+  ![10_2](./images/markdown/9_2.png)
 
   其中，$f_{12}\star f_{21}=f_{21}+warp(f_{12},f_{21})$。
 
@@ -357,11 +357,11 @@
 
 2. 方法
 
-   ![10_1](E:\data\biomedical\registeration\images\markdown\10_1.png)
+   ![10_1](./images/markdown/10_1.png)
 
    - 最终的预测可以被认为是递归预测的流场的组合，而每个级联只需要学习一个简单的小位移对齐，可以通过更深的递归来细化，如下图所示。
 
-     ![10_2](E:\data\biomedical\registeration\images\markdown\10_2.png)
+     ![10_2](./images/markdown/10_2.png)
 
    - 每一个子网络都是类U-net网络。
 
