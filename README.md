@@ -386,13 +386,27 @@
    - 最近的一项研究[1]表明，**纯CNN编码器在一个看似微不足道的坐标变换问题中失败得很明显**，这意味着纯CNN编码器可能不是一个理想的架构，用于编码笛卡尔空间中图像扫描的方向和绝对位置或仿射参数。[2]还报告了基于CNN的仿射配准方法在实践中表现不佳，即使是对于具有较大接受野的深度CNN。
    - 受到最近Vision Transformer模型成功的激励，作者脱离了现有的基于cnn的方法，提出了一种用于3D医学仿射注册的粗到细视觉转换器(C2FViT)。这是第一个基于学习的仿射配准方法，在学习三维医学图像配准的全局仿射配准时考虑输入图像之间的非局部依赖性。
    - 主要贡献：（1）定量研究和分析了现有基于学习的仿射配准方法和传统仿射配准方法在三维大脑配准中的配准性能、鲁棒性和泛化性。（2）提出了一种新的基于学习的仿射配准算法，即C2FViT，该算法利用卷积视觉转换器和多分辨率策略。C2FViT优于最近的基于CNN的仿射配准方法，同时在数据集上表现出优越的鲁棒性和泛化性; （3）所提出的学习范式和目标函数可以适应各种参数配准方法。
+   
 2. 方法
 
+   ![11_1](README.assets/11_1-1676201560914.png)
 
+   ![11_2](README.assets/11_2.png)
 
+   ![image-20230212193506893](README.assets/image-20230212193506893.png)
 
+   from https://blog.csdn.net/fanre/article/details/124971244
+
+3. 代码
+
+   有，没看
+
+4. 问题
+
+   CoM的理解
 
 - [1] Rosanne Liu, Joel Lehman, Piero Molino, Felipe Petroski Such, Eric Frank, Alex Sergeev, and Jason Y osinski. Anintriguing failing of convolutional neural networks and the coordconv solution. arXiv preprint arXiv:1807.03247, 2018.
-
 - [2] Zhengyang Shen, Xu Han, Zhenlin Xu, and Marc Niethammer. Networks for joint affine and non-parametric image registration. In Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition, pages 4224–4233, 2019. 1, 2.
+
+
 
