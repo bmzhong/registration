@@ -2,13 +2,11 @@
 
 [TOC]
 
-
-
 ### 1. VoxelMorph: A Learning Framework for Deformable Medical Image Registration (2019 CVPR VoxeMorph)
 
 1. 方法
 
-   ![](./images/markdown/1_1.png)
+   ![1_1](./images/markdown/1_1.png)
 
    - 使用U-net得到flow field,然后使用spatial transformer得到配准图像；
    - ncc loss和梯度平滑loss；
@@ -156,7 +154,13 @@
 
 4. 问题
 
-   不能理解bending energy penalty loss。
+   ~~不能理解bending energy penalty loss。~~
+   
+   bending energy penalty loss：
+   
+   ![4_3](images/markdown/4_3.png)
+   
+   它惩罚急剧弯曲的变形，是作用于位移场的二阶导数。
 
 ### 4. Attention for Image Registration (AiR): an unsupervised Transformer approach  (2021 arxiv AiR)
 
@@ -398,6 +402,8 @@
    ![11_3](images/markdown/11_3.png)
 
    from https://blog.csdn.net/fanre/article/details/124971244
+
+   - 图中，$F_1,F_2,F_3$分别表示不同分辨率大小的固定图像。 
 
 3. 代码
 
