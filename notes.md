@@ -1,1 +1,2 @@
 1. 微分同胚映射、光滑映射：https://blog.csdn.net/shandianfengfan/article/details/123159271        https://blog.csdn.net/fanre/article/details/125036288?spm=1001.2014.3001.5502
+2. 深度学习中的不确定性估计：https://zhuanlan.zhihu.com/p/262977411
